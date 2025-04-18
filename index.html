@@ -2,48 +2,85 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Yaqeen - My Bookings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yaqeen Booking Flow</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 2rem; }
-    h1 { color: #1e293b; }
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-    th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    th { background: #f1f5f9; }
-    .button { background: #22c55e; padding: 8px 12px; border: none; color: white; cursor: pointer; }
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .page { display: none; }
+    .visible { display: block; }
+    .button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+    .section { margin-top: 20px; }
   </style>
 </head>
 <body>
+  <div id="booking-list" class="page visible">
+    <h2>My Bookings</h2>
+    <p><strong>Branch:</strong> King Khalid International Airport T2</p>
+    <table border="1" cellspacing="0" cellpadding="8">
+      <thead>
+        <tr>
+          <th>Booking No.</th><th>Pickup Time</th><th>Drop-off Time</th>
+          <th>Driver</th><th>Vehicle</th><th>Status</th><th>Total (SAR)</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>DEV2504085</td><td>Mon - 09:00</td><td>Tue - 09:00</td>
+          <td>Nitin Maurya</td><td>Nissan Sunny Classic</td>
+          <td style="color: blue;">Upcoming</td><td>166.75</td>
+          <td><button class="button" onclick="goToPage('booking-details')">Start Agreement</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <h1>My Bookings</h1>
-  <p>Branch: King Khalid International Airport T2</p>
+  <div id="booking-details" class="page">
+    <h3>Step 1: Booking Details</h3>
+    <p><strong>Pickup:</strong> King Khalid Intl. Airport T5 - 21/04/2025 09:00</p>
+    <p><strong>Drop-off:</strong> 22/04/2025 10:00</p>
+    <button class="button" onclick="goToPage('driver-details')">Save and Continue</button>
+  </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Booking No.</th>
-        <th>Pickup Time</th>
-        <th>Drop-off Time</th>
-        <th>Driver</th>
-        <th>Vehicle</th>
-        <th>Status</th>
-        <th>Total (SAR)</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>DEV2504085</td>
-        <td>Mon - 09:00</td>
-        <td>Tue - 09:00</td>
-        <td>Nitin Maurya</td>
-        <td>Nissan Sunny Classic</td>
-        <td><span style="color:blue;">Upcoming</span></td>
-        <td>166.75</td>
-        <td><button class="button" onclick="alert('Agreement started!')">Start Agreement</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div id="driver-details" class="page">
+    <h3>Step 2: Driver Details</h3>
+    <p><strong>Name:</strong> Nitin Maurya</p>
+    <p><strong>Nationality:</strong> India</p>
+    <p><strong>License No:</strong> 2584976563</p>
+    <button class="button" onclick="goToPage('vehicle-assign')">Save and Continue</button>
+  </div>
 
+  <div id="vehicle-assign" class="page">
+    <h3>Step 3: Assign Vehicle</h3>
+    <p><strong>Assigned:</strong> Hyundai i10 2024 - GRAND</p>
+    <button class="button" onclick="goToPage('insurance-extras')">Assign and Continue</button>
+  </div>
+
+  <div id="insurance-extras" class="page">
+    <h3>Step 4: Insurance & Extras</h3>
+    <p><strong>Insurance:</strong> Third party liability</p>
+    <p><strong>KM Allowance:</strong> 1200 KM</p>
+    <button class="button" onclick="goToPage('payment')">Save and Continue</button>
+  </div>
+
+  <div id="payment" class="page">
+    <h3>Step 5: Payment</h3>
+    <p><strong>Discount:</strong> N/A</p>
+    <p><strong>Total:</strong> 667.00 SAR</p>
+    <button class="button" onclick="goToPage('authorization')">Save and Continue</button>
+  </div>
+
+  <div id="authorization" class="page">
+    <h3>Step 6: Authorization</h3>
+    <p><strong>Action:</strong> Complete JIRTAM & Deposit</p>
+    <p><strong>Status:</strong> Agreement Ready</p>
+    <button class="button" onclick="goToPage('booking-list')">Finish</button>
+  </div>
+
+  <script>
+    function goToPage(id) {
+      document.querySelectorAll('.page').forEach(page => page.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+    }
+  </script>
 </body>
 </html>
