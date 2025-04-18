@@ -1,137 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Yaqeen - Rental Agreement Flow</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yaqeen Agreement Flow</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f9f9f9;
+      padding: 2rem;
+      background: #f9f9f9;
     }
-    h1 {
-      color: #1a1a1a;
+    .step {
+      display: none;
+      margin-bottom: 2rem;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
     }
-    .section {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-    label {
+    .step.active {
       display: block;
-      margin: 10px 0 5px;
     }
-    input, select, button {
-      padding: 10px;
-      width: 100%;
-      max-width: 400px;
-      margin-bottom: 15px;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 20px;
-    }
-    .button-row {
+    .navigation {
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
+      justify-content: space-between;
+      max-width: 300px;
+      margin-top: 1rem;
+    }
+    label, input, select {
+      display: block;
+      margin: 0.5rem 0;
+    }
+    .field {
+      margin-bottom: 1rem;
+    }
+    h2 {
+      margin-bottom: 1rem;
     }
   </style>
 </head>
 <body>
   <h1>Create Rental Agreement</h1>
 
-  <div class="section" id="booking-details">
-    <h2>Booking Details</h2>
-    <div class="grid">
-      <div>
-        <label>Pickup Branch</label>
-        <input type="text" value="King Khalid International Airport T5">
-      </div>
-      <div>
-        <label>Drop-off Branch</label>
-        <input type="text" value="Same as pickup">
-      </div>
-      <div>
-        <label>Pickup Date & Time</label>
-        <input type="datetime-local" value="2025-04-18T14:45">
-      </div>
-      <div>
-        <label>Drop-off Date & Time</label>
-        <input type="datetime-local" value="2025-04-22T09:00">
-      </div>
+  <div id="step1" class="step active">
+    <h2>Step 1: Booking Details</h2>
+    <div class="field">
+      <label>Pickup Branch</label>
+      <select><option>King Khalid International Airport T5</option></select>
+    </div>
+    <div class="field">
+      <label>Pickup Date & Time</label>
+      <input type="datetime-local" />
+    </div>
+    <div class="field">
+      <label>Drop-off Date & Time</label>
+      <input type="datetime-local" />
     </div>
   </div>
 
-  <div class="section" id="driver-details">
-    <h2>Driver Details</h2>
-    <div class="grid">
-      <div>
-        <label>Name</label>
-        <input type="text" value="Nitin Maurya">
-      </div>
-      <div>
-        <label>Mobile</label>
-        <input type="text" value="+966544829610">
-      </div>
-      <div>
-        <label>Email</label>
-        <input type="email" value="nitin.maurya1997@gmail.com">
-      </div>
-      <div>
-        <label>ID Type</label>
-        <select><option selected>Resident</option></select>
-      </div>
+  <div id="step2" class="step">
+    <h2>Step 2: Driver Details</h2>
+    <div class="field">
+      <label>Name</label>
+      <input value="Nitin Maurya" />
+    </div>
+    <div class="field">
+      <label>Mobile</label>
+      <input value="+966544829610" />
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input value="nitin.maurya1997@gmail.com" />
+    </div>
+    <div class="field">
+      <label>ID Type</label>
+      <select><option>Resident</option></select>
     </div>
   </div>
 
-  <div class="section" id="vehicle-assignment">
-    <h2>Assign Vehicle</h2>
-    <div class="grid">
-      <div>
-        <label>Selected Vehicle</label>
-        <input type="text" value="Hyundai i10 2024 - GRAND">
-      </div>
-      <div>
-        <label>Suggested Vehicles</label>
-        <select>
-          <option>Hyundai i10 2024 - GRAND</option>
-          <option>Changan Alsvin 2024 - Full</option>
-        </select>
-      </div>
+  <div id="step3" class="step">
+    <h2>Step 3: Assign Vehicle</h2>
+    <div class="field">
+      <label>Selected Vehicle</label>
+      <select>
+        <option>Hyundai i10 2024 - GRAND</option>
+        <option>Changan Alsvin 2024 - Full</option>
+      </select>
     </div>
   </div>
 
-  <div class="section" id="insurance">
-    <h2>Insurance & Extras</h2>
-    <label>Insurance</label>
-    <select>
-      <option selected>Third Party Liability (Free)</option>
-      <option>Comprehensive Insurance (SAR 80.00)</option>
-    </select>
-
-    <label>KMs allowance</label>
-    <select>
-      <option selected>1200 KM - Free</option>
-      <option>Unlimited KM - SAR 50.00</option>
-    </select>
+  <div id="step4" class="step">
+    <h2>Step 4: Insurance & Extras</h2>
+    <div class="field">
+      <label>Insurance</label>
+      <select>
+        <option>Third Party Liability (Free)</option>
+        <option>Comprehensive Insurance</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>KM Allowance</label>
+      <select>
+        <option>1200 KM</option>
+        <option>Unlimited KM</option>
+      </select>
+    </div>
   </div>
 
-  <div class="section" id="payment">
-    <h2>Payment</h2>
-    <label>Apply Discount</label>
-    <input type="text" placeholder="Enter discount code">
-    <label>Total Amount (SAR)</label>
-    <input type="text" value="667.00">
+  <div id="step5" class="step">
+    <h2>Step 5: Payment</h2>
+    <div class="field">
+      <label>Discount Code</label>
+      <input type="text" placeholder="Enter code" />
+    </div>
+    <div class="field">
+      <label>Total Amount (SAR)</label>
+      <input type="number" value="667.00" />
+    </div>
   </div>
 
-  <div class="button-row">
-    <button onclick="alert('Saved & Exited')">Save & Exit</button>
-    <button onclick="alert('Continuing...')">Save and Continue</button>
+  <div class="navigation">
+    <button id="prevBtn" onclick="changeStep(-1)">Back</button>
+    <button id="nextBtn" onclick="changeStep(1)">Next</button>
   </div>
+
+  <script>
+    let currentStep = 1;
+    function changeStep(direction) {
+      document.getElementById(`step${currentStep}`).classList.remove('active');
+      currentStep += direction;
+      if (currentStep < 1) currentStep = 1;
+      if (currentStep > 5) currentStep = 5;
+      document.getElementById(`step${currentStep}`).classList.add('active');
+    }
+  </script>
 </body>
 </html>
