@@ -1,86 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Yaqeen Booking Flow</title>
+  <meta charset="UTF-8">
+  <title>Yaqeen - Rental Agreement Flow</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    .page { display: none; }
-    .visible { display: block; }
-    .button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
-    .section { margin-top: 20px; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1 {
+      color: #1a1a1a;
+    }
+    .section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+    }
+    input, select, button {
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 15px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .button-row {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
   </style>
 </head>
 <body>
-  <div id="booking-list" class="page visible">
-    <h2>My Bookings</h2>
-    <p><strong>Branch:</strong> King Khalid International Airport T2</p>
-    <table border="1" cellspacing="0" cellpadding="8">
-      <thead>
-        <tr>
-          <th>Booking No.</th><th>Pickup Time</th><th>Drop-off Time</th>
-          <th>Driver</th><th>Vehicle</th><th>Status</th><th>Total (SAR)</th><th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>DEV2504085</td><td>Mon - 09:00</td><td>Tue - 09:00</td>
-          <td>Nitin Maurya</td><td>Nissan Sunny Classic</td>
-          <td style="color: blue;">Upcoming</td><td>166.75</td>
-          <td><button class="button" onclick="goToPage('booking-details')">Start Agreement</button></td>
-        </tr>
-      </tbody>
-    </table>
+  <h1>Create Rental Agreement</h1>
+
+  <div class="section" id="booking-details">
+    <h2>Booking Details</h2>
+    <div class="grid">
+      <div>
+        <label>Pickup Branch</label>
+        <input type="text" value="King Khalid International Airport T5">
+      </div>
+      <div>
+        <label>Drop-off Branch</label>
+        <input type="text" value="Same as pickup">
+      </div>
+      <div>
+        <label>Pickup Date & Time</label>
+        <input type="datetime-local" value="2025-04-18T14:45">
+      </div>
+      <div>
+        <label>Drop-off Date & Time</label>
+        <input type="datetime-local" value="2025-04-22T09:00">
+      </div>
+    </div>
   </div>
 
-  <div id="booking-details" class="page">
-    <h3>Step 1: Booking Details</h3>
-    <p><strong>Pickup:</strong> King Khalid Intl. Airport T5 - 21/04/2025 09:00</p>
-    <p><strong>Drop-off:</strong> 22/04/2025 10:00</p>
-    <button class="button" onclick="goToPage('driver-details')">Save and Continue</button>
+  <div class="section" id="driver-details">
+    <h2>Driver Details</h2>
+    <div class="grid">
+      <div>
+        <label>Name</label>
+        <input type="text" value="Nitin Maurya">
+      </div>
+      <div>
+        <label>Mobile</label>
+        <input type="text" value="+966544829610">
+      </div>
+      <div>
+        <label>Email</label>
+        <input type="email" value="nitin.maurya1997@gmail.com">
+      </div>
+      <div>
+        <label>ID Type</label>
+        <select><option selected>Resident</option></select>
+      </div>
+    </div>
   </div>
 
-  <div id="driver-details" class="page">
-    <h3>Step 2: Driver Details</h3>
-    <p><strong>Name:</strong> Nitin Maurya</p>
-    <p><strong>Nationality:</strong> India</p>
-    <p><strong>License No:</strong> 2584976563</p>
-    <button class="button" onclick="goToPage('vehicle-assign')">Save and Continue</button>
+  <div class="section" id="vehicle-assignment">
+    <h2>Assign Vehicle</h2>
+    <div class="grid">
+      <div>
+        <label>Selected Vehicle</label>
+        <input type="text" value="Hyundai i10 2024 - GRAND">
+      </div>
+      <div>
+        <label>Suggested Vehicles</label>
+        <select>
+          <option>Hyundai i10 2024 - GRAND</option>
+          <option>Changan Alsvin 2024 - Full</option>
+        </select>
+      </div>
+    </div>
   </div>
 
-  <div id="vehicle-assign" class="page">
-    <h3>Step 3: Assign Vehicle</h3>
-    <p><strong>Assigned:</strong> Hyundai i10 2024 - GRAND</p>
-    <button class="button" onclick="goToPage('insurance-extras')">Assign and Continue</button>
+  <div class="section" id="insurance">
+    <h2>Insurance & Extras</h2>
+    <label>Insurance</label>
+    <select>
+      <option selected>Third Party Liability (Free)</option>
+      <option>Comprehensive Insurance (SAR 80.00)</option>
+    </select>
+
+    <label>KMs allowance</label>
+    <select>
+      <option selected>1200 KM - Free</option>
+      <option>Unlimited KM - SAR 50.00</option>
+    </select>
   </div>
 
-  <div id="insurance-extras" class="page">
-    <h3>Step 4: Insurance & Extras</h3>
-    <p><strong>Insurance:</strong> Third party liability</p>
-    <p><strong>KM Allowance:</strong> 1200 KM</p>
-    <button class="button" onclick="goToPage('payment')">Save and Continue</button>
+  <div class="section" id="payment">
+    <h2>Payment</h2>
+    <label>Apply Discount</label>
+    <input type="text" placeholder="Enter discount code">
+    <label>Total Amount (SAR)</label>
+    <input type="text" value="667.00">
   </div>
 
-  <div id="payment" class="page">
-    <h3>Step 5: Payment</h3>
-    <p><strong>Discount:</strong> N/A</p>
-    <p><strong>Total:</strong> 667.00 SAR</p>
-    <button class="button" onclick="goToPage('authorization')">Save and Continue</button>
+  <div class="button-row">
+    <button onclick="alert('Saved & Exited')">Save & Exit</button>
+    <button onclick="alert('Continuing...')">Save and Continue</button>
   </div>
-
-  <div id="authorization" class="page">
-    <h3>Step 6: Authorization</h3>
-    <p><strong>Action:</strong> Complete JIRTAM & Deposit</p>
-    <p><strong>Status:</strong> Agreement Ready</p>
-    <button class="button" onclick="goToPage('booking-list')">Finish</button>
-  </div>
-
-  <script>
-    function goToPage(id) {
-      document.querySelectorAll('.page').forEach(page => page.classList.remove('visible'));
-      document.getElementById(id).classList.add('visible');
-    }
-  </script>
 </body>
 </html>
