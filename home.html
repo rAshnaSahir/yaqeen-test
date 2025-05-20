@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dummy Yaqeen Platform</title>
+  <!-- Amplitude JS SDK -->
+  <script type="text/javascript">
+    (function(e,t){var n=e.amplitude||{_q:[],_iq:{}};var r=t.createElement("script");r.type="text/javascript";r.async=true;
+    r.src="https://cdn.amplitude.com/libs/amplitude-8.5.0-min.js";
+    r.onload=function(){if(e.amplitude.runQueuedFunctions){e.amplitude.runQueuedFunctions()}else{console.log("Amplitude loaded")}};
+    var i=t.getElementsByTagName("script")[0];i.parentNode.insertBefore(r,i);
+    function s(e,t){e.prototype[t]=function(){this._q.push([t].concat(Array.prototype.slice.call(arguments,0)));return this}};
+    var o=function(){this._q=[];return this};var a=["init","logEvent","setUserId","setUserProperties","setOptOut","setVersionName","identify"];
+    for(var u=0;u<a.length;u++){s(o,a[u])}n.Identify=o;n= e.amplitude = new o();
+    amplitude.init("YOUR_API_KEY_HERE");
+  })(window, document);
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; overflow:hidden; }
+    .header { background:#2c3e50; color:#ecf0f1; padding:1rem; text-align:center; }
+    .container { display:flex; width:500vw; transition:transform 0.5s ease-in-out; }
+    .page { width:100vw; padding:2rem; box-sizing:border-box; }
+    .booking-list ul { list-style:none; padding:0; }
+    .booking-list li, .item-list li { background:#ecf0f1; margin:0.5rem 0; padding:1rem; border-radius:5px; display:flex; justify-content:space-between; align-items:center; }
+    .button { padding:0.5rem 1rem; border:none; border-radius:4px; cursor:pointer; background:#3498db; color:#fff; }
+    .button.secondary { background:#95a5a6; margin-right:0.5rem; }
+    .form-group { margin:1rem 0; }
+    select, input { padding:0.5rem; width:100%; box-sizing:border-box; }
+  </style>
+</head>
+<body>
+  <div class="header"><h1>Dummy Yaqeen</h1></div>
+  <div class="container" id="container">
+    <!-- Page 1: Booking List -->
+    <section class="page booking-list">
+      <h2>All Bookings</h2>
+      <ul>
+        <li>Booking #1001 <button class="button next" data-event="Select Booking" data-id="1001">Select</button></li>
+        <li>Booking #1002 <button class="button next" data-event="Select Booking" data-id="1002">Select</button></li>
+        <li>Booking #1003 <button class="button next" data-event="Select Booking" data-id="1003">Select</button></li>
+      </ul>
+    </section>
+    <!-- Page 2: Driver Details -->
+    <section class="page driver-details">
+      <h2>Driver Details</h2>
+      <div class="form-group">
+        <label for="driver-select">Choose Existing Driver:</label>
+        <select id="driver-select">
+          <option value="John Doe">John Doe</option>
+          <option value="Jane Smith">Jane Smith</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Or Add New Driver:</label>
+        <input type="text" id="driver-new" placeholder="Full Name">
+      </div>
+      <button class="button secondary prev">Back</button>
+      <button class="button next" data-event="Driver Confirmed">Next</button>
+    </section>
+    <!-- Page 3: Vehicle Assignment -->
+    <section class="page vehicle-selection">
+      <h2>Assign Vehicle</h2>
+      <div class="form-group">
+        <label for="vehicle-select">Select Vehicle:</label>
+        <select id="vehicle-select">
+          <option value="Standard Sedan">Standard Sedan</option>
+          <option value="SUV">SUV</option>
+          <option value="Compact">Compact</option>
+        </select>
+      </div>
+      <button class="button secondary prev">Back</button>
+      <button class="button next" data-event="Vehicle Assigned">Next</button>
+    </section>
+    <!-- Page 4: Extras & Insurance -->
+    <section class="page extras-insurance">
+      <h2>Insurance & Extras</h2>
+      <div class="form-group">
+        <label for="insurance">Insurance Type:</label>
+        <select id="insurance">
+          <option value="Standard">Standard</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label><input type="checkbox" id="extra-seat"> Baby Seat</label>
+      </div>
+      <button class="button secondary prev">Back</button>
+      <button class="button next" data-event="Extras Selected">Next</button>
+    </section>
+    <!-- Page 5: Review & Finalize -->
+    <section class="page review-finalize">
+      <h2>Review & Finalize</h2>
+      <p>Review the details and click Finalize to complete the agreement.</p>
+      <button class="button secondary prev">Back</button>
+      <button class="button finalize">Finalize Agreement</button>
+    </section>
+  </div>
+  <script>
+    amplitude.logEvent('Page Viewed', { page: 'Booking List' });
+    const container = document.getElementById('container');
+    let currentPage = 0;
+    const totalPages = 5;
+    
+    // Navigate Next
+    document.querySelectorAll('.next').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const eventName = btn.getAttribute('data-event');
+        let eventProps = {};
+        if (btn.dataset.id) eventProps.bookingId = btn.dataset.id;
+        // capture selected or new driver
+        if (eventName === 'Driver Confirmed') {
+          const newDriver = document.getElementById('driver-new').value;
+          eventProps.driver = newDriver || document.getElementById('driver-select').value;
+        }
+        // vehicle
+        if (eventName === 'Vehicle Assigned') {
+          eventProps.vehicle = document.getElementById('vehicle-select').value;
+        }
+        // extras
+        if (eventName === 'Extras Selected') {
+          eventProps.insurance = document.getElementById('insurance').value;
+          eventProps.babySeat = document.getElementById('extra-seat').checked;
+        }
+        amplitude.logEvent(eventName, eventProps);
+        if (currentPage < totalPages - 1) {
+          currentPage++;
+          container.style.transform = `translateX(-${currentPage * 100}vw)`;
+        }
+      });
+    });
+    
+    // Navigate Prev
+    document.querySelectorAll('.prev').forEach(btn => {
+      btn.addEventListener('click', () => {
+        amplitude.logEvent('Back Clicked', { fromPage: currentPage });
+        if (currentPage > 0) {
+          currentPage--;
+          container.style.transform = `translateX(-${currentPage * 100}vw)`;
+        }
+      });
+    });
+    
+    // Finalize
+    document.querySelector('.finalize').addEventListener('click', () => {
+      amplitude.logEvent('Agreement Finalized', { status: 'completed' });
+      alert('Agreement finalized!');
+    });
+  </script>
+</body>
+</html>
